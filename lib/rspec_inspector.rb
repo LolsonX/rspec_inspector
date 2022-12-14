@@ -10,7 +10,7 @@ module RSpecInspector
   # Using source location method we can find first line of definition
   # To find end line the easiest way to do this is to read a File with defintion
   # Then starting with the definition line try to build abstract tree
-  def self.find_let_definition_length
+  LET_METHOD_DEFINITION_LENGTH = lambda do
     # Buffer to keep read lines
     lines = []
     # get file location and let method starting line
@@ -29,8 +29,8 @@ module RSpecInspector
     end
     # indexing start with 0 in programming so we need to correct the length to also start from 0
     lines.length - 1
-  end
-  LET_METHOD_DEFINITION_END = LET_METHOD_DEFINITION_START + RSpecInspector.find_let_definition_length
+  end.call
+  LET_METHOD_DEFINITION_END = LET_METHOD_DEFINITION_START + LET_METHOD_DEFINITION_LENGTH
 
   class << self
     def initialize
@@ -77,6 +77,7 @@ module RSpecInspector
       RSpecInspector.log_message(RSpecInspector.message(example, summary))
     end
 
+    # TODO: Add support for custom message
     def message(example, summary)
       <<~MSG
         [RSpec Inspector] Test: #{example.description.titleize} failed.
@@ -85,6 +86,7 @@ module RSpecInspector
       MSG
     end
 
+    # TODO: Add support for custom logger
     def log_message(message)
       if defined?(Rails)
         Rails.logger.error(message)
@@ -92,5 +94,7 @@ module RSpecInspector
         warn(message)
       end
     end
+
+    # TODO: Add configuration options
   end
 end
