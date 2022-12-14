@@ -3,7 +3,7 @@
 require_relative 'lib/rspec_inspector/version'
 
 Gem::Specification.new do |spec|
-  spec.name = 'rspec_inspector'
+  spec.name = 'rspec-inspector'
   spec.version = RspecInspector::VERSION
   spec.authors = ['LolsonX']
   spec.email = ['xlolsonx@gmail.com']
@@ -36,4 +36,5 @@ Gem::Specification.new do |spec|
 
   # For more information and examples about making a new gem, check out our
   # guide at: https://bundler.io/guides/creating_gem.html
+  spec.add_dependency 'rspec-core', '~> 3'
 end
